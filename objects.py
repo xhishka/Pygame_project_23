@@ -90,6 +90,48 @@ class Dot(pygame.sprite.Sprite):
         self.rect = pygame.draw.circle(self.win, self.color, (self.x, self.y), 6)
 
 
+class ShadowImage:
+    def __init__(self):
+        self.image = pygame.Surface((10, 100), pygame.SRCALPHA)
+        self.image.fill((255, 255, 255, 100))
+        self.rect = self.image.get_rect()
+
+    def rotate(self, angle):
+        rotated = pygame.transform.rotate(self.image, angle)
+        self.rect = rotated.get_rect()
+        return rotated
+
+
+class Shadow(pygame.sprite.Sprite):
+    def __init__(self, index, win):
+        super(Shadow, self).__init__()
+
+        self.index = index
+        self.win = win
+        self.color = (255, 255, 255)
+        self.shadow = ShadowImage()
+
+        if self.index == 1:
+            self.image = self.shadow.rotate(0)
+            self.x = CENTER[0] - 5
+            self.y = CENTER[1] - MAX_RAD + 10
+        if self.index == 2:
+            self.image = self.shadow.rotate(90)
+            self.x = CENTER[0] + 10
+            self.y = CENTER[1] - 5
+        if self.index == 3:
+            self.image = self.shadow.rotate(0)
+            self.x = CENTER[0] - 5
+            self.y = CENTER[1] + 10
+        if self.index == 4:
+            self.image = self.shadow.rotate(-90)
+            self.x = CENTER[0] - MAX_RAD + 10
+            self.y = CENTER[1] - 5
+
+    def update(self):
+        self.win.blit(self.image, (self.x, self.y))
+
+
 class Balls(pygame.sprite.Sprite):
     def __init__(self, pos, type_, inverter, win):
         super(Balls, self).__init__()

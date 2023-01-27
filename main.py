@@ -1,7 +1,7 @@
 import random
 import pygame
 
-from objects import Player, Balls, Dot, Particle, Message, BlinkingText, Button
+from objects import Player, Balls, Dot, Particle, Message, BlinkingText, Button, Shadow
 
 pygame.init()
 SCREEN = WIDTH, HEIGHT = 288, 512
@@ -110,6 +110,9 @@ dot_index = random.choice([1, 2, 3, 4])
 dot_pos = dot_list[dot_index - 1]
 dot = Dot(*dot_pos, win)
 dot_group.add(dot)
+
+shadow = Shadow(dot_index, win)
+shadow_group.add(shadow)
 
 # Переменные
 
@@ -257,6 +260,10 @@ while running:
                 dot = Dot(*dot_pos, win)
                 dot_group.add(dot)
 
+                shadow_group.empty()
+                shadow = Shadow(dot_index, win)
+                shadow_group.add(shadow)
+
             if not player_alive and len(particle_group) == 0:
                 game_page = False
                 score_page = True
@@ -266,6 +273,7 @@ while running:
                 for ball in ball_group:
                     ball.reset()
                 score_page_fx.play()
+
     pygame.draw.rect(win, WHITE, (0, 0, WIDTH, HEIGHT), 5, border_radius=10)
     clock.tick(FPS)
     pygame.display.update()
