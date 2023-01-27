@@ -56,10 +56,12 @@ score_msg = Message(WIDTH - 60, 50, 50, "0", score_font, WHITE, win)
 final_score_msg = Message(90, 280, 40, "0", tap_to_play_font, BLACK, win)
 high_score_msg = Message(200, 280, 40, "0", tap_to_play_font, BLACK, win)
 
+
 home_img = pygame.image.load('Assets/homeBtn.png')
 replay_img = pygame.image.load('Assets/replay.png')
-sound_off_img = pygame.image.load("Assets/soundOffBtn.png")
-sound_on_img = pygame.image.load("Assets/soundOnBtn.png")
+home_btn = Button(home_img, (24, 24), WIDTH // 4 - 18, 390)
+replay_btn = Button(replay_img, (36, 36), WIDTH // 2 - 18, 382)
+
 
 
 # Игровые переменные
@@ -175,6 +177,23 @@ while running:
         best_text.update(shadow=False)
         final_score_msg.update(score, shadow=False)
         high_score_msg.update(highscore, shadow=False)
+
+        if home_btn.draw(win):
+            home_page = True
+            score_page = False
+            game_page = False
+            score = 0
+            score_msg = Message(WIDTH - 60, 50, 50, "0", score_font, WHITE, win)
+
+        if replay_btn.draw(win):
+            home_page = False
+            score_page = False
+            game_page = True
+
+            player_alive = True
+            score = 0
+            score_msg = Message(WIDTH - 60, 50, 50, "0", score_font, WHITE, win)
+            p = Player(win)
 
     if game_page:
 
