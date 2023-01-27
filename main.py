@@ -56,13 +56,24 @@ score_msg = Message(WIDTH - 60, 50, 50, "0", score_font, WHITE, win)
 final_score_msg = Message(90, 280, 40, "0", tap_to_play_font, BLACK, win)
 high_score_msg = Message(200, 280, 40, "0", tap_to_play_font, BLACK, win)
 
-
+# Изображения
 home_img = pygame.image.load('pics/homeBtn.png')
 replay_img = pygame.image.load('pics/replay.png')
+sound_off_img = pygame.image.load("pics/soundOffBtn.png")
+sound_on_img = pygame.image.load("pics/soundOnBtn.png")
+
+# Кнопки
 home_btn = Button(home_img, (24, 24), WIDTH // 4 - 18, 390)
 replay_btn = Button(replay_img, (36, 36), WIDTH // 2 - 18, 382)
+sound_btn = Button(sound_on_img, (24, 24), WIDTH - WIDTH // 4 - 18, 390)
 
-
+# Звуки
+score_fx = pygame.mixer.Sound('Sounds/point.mp3')
+death_fx = pygame.mixer.Sound('Sounds/dead.mp3')
+score_page_fx = pygame.mixer.Sound('Sounds/score_page.mp3')
+pygame.mixer.music.load('Sounds/hk.mp3')
+pygame.mixer.music.play(loops=-1)
+pygame.mixer.music.set_volume(0.5)
 
 # Игровые переменные
 
@@ -195,6 +206,16 @@ while running:
             score_msg = Message(WIDTH - 60, 50, 50, "0", score_font, WHITE, win)
             p = Player(win)
 
+        if sound_btn.draw(win):
+            sound_on = not sound_on
+
+            if sound_on:
+                sound_btn.update_image(sound_on_img)
+                pygame.mixer.music.play(loops=-1)
+            else:
+                sound_btn.update_image(sound_off_img)
+                pygame.mixer.music.stop()
+
     if game_page:
 
         for radius in [30 + rad_delta, 60 + rad_delta, 90 + rad_delta, 120 + rad_delta]:
@@ -217,10 +238,12 @@ while running:
             for dot in dot_group:
                 if dot.rect.colliderect(p):
                     dot.kill()
+                    score_fx.play()
                     score += 1
                     if highscore <= score:
                         highscore = score
             if pygame.sprite.spritecollide(p, ball_group, False) and player_alive:
+                death_fx.play()
                 x, y = p.rect.center
                 for i in range(20):
                     particle = Particle(x, y, WHITE, win)
@@ -242,7 +265,7 @@ while running:
                 shadow_group.empty()
                 for ball in ball_group:
                     ball.reset()
-
+                score_page_fx.play()
     pygame.draw.rect(win, WHITE, (0, 0, WIDTH, HEIGHT), 5, border_radius=10)
     clock.tick(FPS)
     pygame.display.update()
