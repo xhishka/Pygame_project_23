@@ -35,7 +35,7 @@ color_list = [RED, GREEN, BLUE, ORANGE, YELLOW, PURPLE]
 color_index = 0
 color = color_list[color_index]
 
-# шрифты
+# Шрифты
 
 title_font = "Fonts/Aladin-Regular.ttf"
 tap_to_play_font = "Fonts/BubblegumSans-Regular.ttf"
