@@ -57,8 +57,8 @@ final_score_msg = Message(90, 280, 40, "0", tap_to_play_font, BLACK, win)
 high_score_msg = Message(200, 280, 40, "0", tap_to_play_font, BLACK, win)
 
 
-home_img = pygame.image.load('Assets/homeBtn.png')
-replay_img = pygame.image.load('Assets/replay.png')
+home_img = pygame.image.load('pics/homeBtn.png')
+replay_img = pygame.image.load('pics/replay.png')
 home_btn = Button(home_img, (24, 24), WIDTH // 4 - 18, 390)
 replay_btn = Button(replay_img, (36, 36), WIDTH // 2 - 18, 382)
 
