@@ -56,6 +56,11 @@ score_msg = Message(WIDTH - 60, 50, 50, "0", score_font, WHITE, win)
 final_score_msg = Message(90, 280, 40, "0", tap_to_play_font, BLACK, win)
 high_score_msg = Message(200, 280, 40, "0", tap_to_play_font, BLACK, win)
 
+home_img = pygame.image.load('Assets/homeBtn.png')
+replay_img = pygame.image.load('Assets/replay.png')
+sound_off_img = pygame.image.load("Assets/soundOffBtn.png")
+sound_on_img = pygame.image.load("Assets/soundOnBtn.png")
+
 
 # Игровые переменные
 
